@@ -94,4 +94,5 @@ describe('Trade', function() {
 			assert.equal(result, null);
 		});
 	});
+	
 });

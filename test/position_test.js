@@ -82,4 +82,12 @@ describe('Position', function() {
 			assert.deepEqual(result.trades[1].contract, jan);
 		});
 	});
+	
+	describe('#VWAP()', function(){
+		it('should simply return total cost divided by price', function(){
+			assert.equal(oneTrade.VWAP(), trade1.totalCost()/trade1.totalVolume());
+			
+			assert.equal(twoTrades.VWAP(), (trade1.totalCost() + trade2.totalCost())/(trade1.totalVolume() + trade2.totalVolume()));
+		});
+	})
 });
