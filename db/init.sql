@@ -58,9 +58,10 @@ VALUES
 DELETE FROM contracts;
 INSERT INTO contracts (name, start_date, end_date, time_amount)
 VALUES
-('Jan-16', '2016-01-04', '2016-01-31', 672),
-('Feb-16', '2016-02-01', '2016-02-28', 672),
-('Mar-16', '2016-08-29', '2016-04-03', 840),
-('Q1-16',  '2016-01-04', '2016-04-03', 2184);
+-- note that end dates are exclusive, i.e. treated as ending at 00:00 hours on the specified dates
+('Jan-16', '2016-01-04', '2016-02-01', 672),
+('Feb-16', '2016-02-01', '2016-02-29', 672),
+('Mar-16', '2016-02-29', '2016-04-04', 840),
+('Q1-16',  '2016-01-04', '2016-04-04', 2184);
 
 
