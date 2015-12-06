@@ -1,0 +1,13 @@
+{
+  "name"        : "riskEbb",
+  "version"     : "0.0.1",
+  "description" : "riskEbb - commodity risk management",
+  "main"        : "index.js",
+  "author"      : "Daniel Bhugon",
+  "dependencies": {
+    "express"   : "latest",
+	"pg"		: "latest",
+	"body-parser" : "latest",
+	"trader" : "file:../node_modules/trader/"
+  }
+}
