@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 var app     = express();
 var trader = require('./lib/trader.js');
 var fs = require('fs');
+var assert = require('assert');
 
 var sql = fs.readFileSync('./db/init.sql').toString();
 
@@ -21,15 +22,6 @@ app.listen(process.env.PORT || config.port);
 console.log('server running on ' + config.port);
 exports = module.exports = app;
 
-const trade = new trader.Trade(
-	0,
-	{name: 'baseload'},
-	{name: 'Jan-16', start_date: new Date('2016-01-01'), end_date: new Date('2016-01-31'), time_amount: 672},
-	10.0,
-	24.5,
-	"this is a test trade"
-	);
-console.log(trade.totalVolume());
 
 app.get('/api/trades', function(req, res){
 	executeQuery("SELECT trades.*, row_to_json(products.*) FROM trades inner join products on trades.product_id = products.id;", function(result) {
