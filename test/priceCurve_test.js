@@ -1,0 +1,18 @@
+var assert = require('assert');
+var trader = require('../lib/trader.js');
+var v = require('./setup');
+
+describe('Position', function() {
+	
+	describe('#getPrice(product, contract)', function(){
+		
+		it('should return the price for the matching product and contract', function(){
+			assert.equal(v.myCurve.getPrice(v.baseload, v.jan), v.janBaseloadPrice.price);
+			assert.equal(v.myCurve.getPrice(v.baseload, v.apr), v.aprBaseloadPrice.price);
+			assert.equal(v.myCurve.getPrice(v.peak, v.jan), v.janPeakPrice.price);
+			assert.equal(v.myCurve.getPrice(v.peak, v.apr), v.aprPeakPrice.price);
+		});
+	});
+	
+	
+});
