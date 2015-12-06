@@ -1,13 +1,13 @@
 var trader = require('../lib/trader.js');
 
 // products uniquely identified by only their name
-const baseload = {name: 'baseload'};
-const peak = {name: 'peak'};
+const baseload = {id: 0, name: 'baseload'};
+const peak = {id: 1, name: 'peak'};
 
 // months are zero-indexed
-const jan = {name: 'Jan-16', start_date: new Date(2016,0,1), end_date: new Date(2016,1,1), time_amount: 672};
-const apr = {name: 'Apr-16', start_date: new Date(2016,3,1), end_date: new Date(2016,4,1), time_amount: 672};
-const q1 = {name: 'Q1-16', start_date: new Date(2016,0,1), end_date: new Date(2016,3,1), time_amount: 2184};
+const jan = {id: 0, name: 'Jan-16', start_date: new Date(2016,0,1), end_date: new Date(2016,1,1), time_amount: 672};
+const apr = {id: 1, name: 'Apr-16', start_date: new Date(2016,3,1), end_date: new Date(2016,4,1), time_amount: 672};
+const q1 = {id: 2, name: 'Q1-16', start_date: new Date(2016,0,1), end_date: new Date(2016,3,1), time_amount: 2184};
 
 //id, product, contract, rate, price, info
 const trade1 = new trader.Trade(
