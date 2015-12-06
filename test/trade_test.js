@@ -26,13 +26,6 @@ describe('Trade', function() {
 		"this is a test trade"
 		);
 	
-	console.log(jan.start_date);
-	console.log(jan.end_date);
-	it('should be 31 days in Jan', function(){
-		assert.equal((jan.end_date - jan.start_date)/(1000*60*60*24), 31);
-	});
-	
-	
 	describe('#totalVolume()', function () {
 		it('should return volume as product of rate and time', function () {
 			assert.equal(trade1.totalVolume(), 10*q1.time_amount);
@@ -66,13 +59,19 @@ describe('Trade', function() {
 	describe('#project(contract)', function(){
 		it('should return trade with the same contract if contract contains it', function(){
 			const result = trade2.project(q1);
-			assert.equal(result.contract, trade2.contract);
+			assert.deepEqual(result.contract, trade2.contract);
 		});
 		
 		it('should return trade with reduced contract if contract is sub-period', function(){
 			const result = trade1.project(jan);
 			
-			assert.equal(result.contract, jan);
+			assert.deepEqual(result.contract, jan);
 		});
+		
+		it('should return null if contracts do not overlap', function(){
+			const result = trade2.project(apr);
+			
+			assert.equal(result, null);
+		})
 	});
 });
