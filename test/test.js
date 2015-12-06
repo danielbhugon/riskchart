@@ -61,7 +61,18 @@ describe('Trade', function() {
 		it('should return zero for non-overlapping period', function() {
 			assert.equal(trade2.overlap(apr), 0.0);
 		});
-
-
+	});
+	
+	describe('#project(contract)', function(){
+		it('should return trade with the same contract if contract contains it', function(){
+			const result = trade2.project(q1);
+			assert.equal(result.contract, trade2.contract);
+		});
+		
+		it('should return trade with reduced contract if contract is sub-period', function(){
+			const result = trade1.project(jan);
+			
+			assert.equal(result.contract, jan);
+		});
 	});
 });
