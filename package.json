@@ -7,7 +7,6 @@
   "dependencies": {
     "express"   : "latest",
 	"pg"		: "latest",
-	"body-parser" : "latest",
-	"trader" : "file:../node_modules/trader/"
+	"body-parser" : "latest"
   }
 }
