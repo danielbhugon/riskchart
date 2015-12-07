@@ -44,6 +44,7 @@ CREATE TABLE IF NOT EXISTS trades
 	contract_id bigint,
 	rate_amount double precision,
 	price double precision,
+	trade_date timestamp with time zone,
 	info character varying(255),
 	CONSTRAINT trades_pkey PRIMARY KEY (id)
 );
@@ -63,5 +64,10 @@ VALUES
 ('Feb-16', '2016-02-01', '2016-02-29', 672),
 ('Mar-16', '2016-02-29', '2016-04-04', 840),
 ('Q1-16',  '2016-01-04', '2016-04-04', 2184);
+
+
+
+
+
 
 
