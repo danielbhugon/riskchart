@@ -40,6 +40,7 @@ const trade3 = new trader.Trade(
 const oneTrade = new trader.Position([trade1]);
 const twoTrades = new trader.Position([trade1, trade2]);
 const threeTrades = new trader.Position([trade1, trade2, trade3]);
+const twoMonthTrades = new trader.Position([trade2, trade3]);
 
 //product, contract, price, price_date
 const janBaseloadPrice = new trader.MarketPrice(baseload, jan, 1.0, new Date());
@@ -48,7 +49,7 @@ const aprBaseloadPrice = new trader.MarketPrice(baseload, apr, 2.0, new Date());
 const janPeakPrice = new trader.MarketPrice(peak, jan, 3.0, new Date());
 const aprPeakPrice = new trader.MarketPrice(peak, apr, 4.0, new Date());
 
-const myCurve = new trader.PriceCurve([janBaseloadPrice, aprBaseloadPrice, janPeakPrice, aprPeakPrice]);
+const priceCurve = new trader.PriceCurve([janBaseloadPrice, aprBaseloadPrice, janPeakPrice, aprPeakPrice]);
 
 module.exports = {
 	baseload: baseload,
@@ -66,5 +67,6 @@ module.exports = {
 	aprBaseloadPrice: aprBaseloadPrice,
 	janPeakPrice: janPeakPrice,
 	aprPeakPrice: aprPeakPrice,
-	myCurve: myCurve
+	priceCurve: priceCurve,
+	twoMonthTrades: twoMonthTrades
 };

@@ -69,15 +69,15 @@ describe('Trade', function() {
 		console.log(null*123213);
 		
 		it('should have market value equal to price times volume', function(){
-			assert.equal(v.trade2.marketValue(v.myCurve), v.trade2.totalVolume()*v.janBaseloadPrice.price);
+			assert.equal(v.trade2.marketValue(v.priceCurve), v.trade2.totalVolume()*v.janBaseloadPrice.price);
 		});
 		
 		it('should have market value equal to price times volume', function(){
-			assert.equal(v.trade3.marketValue(v.myCurve), v.trade3.totalVolume()*v.aprBaseloadPrice.price);
+			assert.equal(v.trade3.marketValue(v.priceCurve), v.trade3.totalVolume()*v.aprBaseloadPrice.price);
 		});
 		
 		it('should have null market value if a matching market price is not found', function(){
-			assert.equal(v.trade1.marketValue(v.myCurve), null);
+			assert.equal(v.trade1.marketValue(v.priceCurve), null);
 		});
 	});
 	

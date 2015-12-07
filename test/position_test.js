@@ -52,5 +52,11 @@ describe('Position', function() {
 			
 			assert.equal(v.twoTrades.VWAP(), (v.trade1.totalCost() + v.trade2.totalCost())/(v.trade1.totalVolume() + v.trade2.totalVolume()));
 		});
+	});
+	
+	describe('#marketValue(priceCurve)', function(){
+		it('should be sum of market values', function(){
+			assert.equal(v.twoMonthTrades.marketValue(v.priceCurve), v.trade2.marketValue(v.priceCurve) + v.trade3.marketValue(v.priceCurve));
+		})
 	})
 });
