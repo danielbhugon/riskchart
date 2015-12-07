@@ -40,6 +40,7 @@ CREATE TABLE IF NOT EXISTS users
 CREATE TABLE IF NOT EXISTS trades
 (
 	id bigserial NOT NULL,
+	portfolio_id bigint,
 	product_id bigint,
 	contract_id bigint,
 	rate_amount double precision,
@@ -47,6 +48,21 @@ CREATE TABLE IF NOT EXISTS trades
 	trade_date timestamp with time zone,
 	info character varying(255),
 	CONSTRAINT trades_pkey PRIMARY KEY (id)
+);
+
+CREATE TABLE IF NOT EXISTS users
+(
+	id bigserial NOT NULL,
+	name character varying(255),
+	CONSTRAINT users_pkey PRIMARY KEY(id)
+);
+
+CREATE TABLE IF NOT EXISTS portfolios
+(
+	id bigserial NOT NULL,
+	user_id bigint,
+	name character varying(255),
+	CONSTRAINT portfolios_pkey PRIMARY KEY(id)
 );
 
 -- dummy data to get us started
