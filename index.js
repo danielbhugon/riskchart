@@ -22,12 +22,24 @@ app.listen(process.env.PORT || config.port);
 console.log('server running on ' + config.port);
 exports = module.exports = app;
 
+app.get('/api/portfolios', function(req, res){
+	executeQuery("SELECT * FROM portfolios WHERE user_id=$1;", [0], function(result) {
+		res.json(result);
+	});
+});
 
 app.get('/api/trades', function(req, res){
 	executeQuery("SELECT trades.*, row_to_json(products.*) FROM trades inner join products on trades.product_id = products.id;", function(result) {
 		res.json(result);
 	});
 });
+
+
+// common query functions
+
+var getTradesByPortfolio()
+
+
 
 // helper functions for database access - replace with ORM if required?
 var executeQuery = function(sql, callback) {

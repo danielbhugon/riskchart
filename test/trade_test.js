@@ -66,8 +66,6 @@ describe('Trade', function() {
 	
 	describe('#marketValue(priceCurve)', function(){
 		
-		console.log(null*123213);
-		
 		it('should have market value equal to price times volume', function(){
 			assert.equal(v.trade2.marketValue(v.priceCurve), v.trade2.totalVolume()*v.janBaseloadPrice.price);
 		});
@@ -79,6 +77,10 @@ describe('Trade', function() {
 		it('should have null market value if a matching market price is not found', function(){
 			assert.equal(v.trade1.marketValue(v.priceCurve), null);
 		});
+	});
+	
+	describe('#reverse()', function(){
+		it('should give a trade with the opposite volume but other details the same');
 	});
 	
 });

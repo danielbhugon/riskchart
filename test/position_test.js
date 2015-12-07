@@ -95,5 +95,17 @@ describe('Position', function() {
 		it('should be sum of market values', function(){
 			assert.equal(v.twoMonthTrades.marketValue(v.priceCurve), v.trade2.marketValue(v.priceCurve) + v.trade3.marketValue(v.priceCurve));
 		})
-	})
+	});
+	
+	describe('#add(position)', function(){
+		it('should have the combined volume of the two postions');
+		it('should have the combined total cost of the two postions');
+	});
+	
+	describe('#subtract(position)', function(){
+		it('should have the difference in volume of the two postions');
+		it('should have the difference in total cost of the two postions');
+	});
+	
+	
 });
