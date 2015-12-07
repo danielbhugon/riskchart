@@ -16,6 +16,7 @@ const trade1 = new trader.Trade(
 	q1,
 	10.0,
 	24.5,
+	new Date(),
 	"this is a test trade"
 	);
 
@@ -25,6 +26,7 @@ const trade2 = new trader.Trade(
 	jan,
 	10.0,
 	24.5,
+	new Date(),
 	"this is a test trade"
 	);
 
@@ -34,13 +36,35 @@ const trade3 = new trader.Trade(
 	apr,
 	10.0,
 	24.5,
+	new Date(),
 	"this is a test trade"
 	);
 
+const trade4 = new trader.Trade(
+	0,
+	baseload,
+	apr,
+	9.0,
+	24.5,
+	new Date(2001,01,01),
+	"this is a test trade"
+	);
+	
+const trade5 = new trader.Trade(
+	0,
+	baseload,
+	apr,
+	11.0,
+	24.5,
+	new Date(2002,01,01),
+	"this is a test trade"
+	);
+	
 const oneTrade = new trader.Position([trade1]);
 const twoTrades = new trader.Position([trade1, trade2]);
 const threeTrades = new trader.Position([trade1, trade2, trade3]);
 const twoMonthTrades = new trader.Position([trade2, trade3]);
+const tradesThroughTime = new trader.Position([trade4, trade5]);
 
 //product, contract, price, price_date
 const janBaseloadPrice = new trader.MarketPrice(baseload, jan, 1.0, new Date());
@@ -57,6 +81,8 @@ module.exports = {
 	trade1: trade1,
 	trade2: trade2,
 	trade3: trade3,
+	trade4: trade4,
+	trade5: trade5,
 	oneTrade: oneTrade,
 	twoTrades: twoTrades,
 	threeTrades: threeTrades,
@@ -68,5 +94,6 @@ module.exports = {
 	janPeakPrice: janPeakPrice,
 	aprPeakPrice: aprPeakPrice,
 	priceCurve: priceCurve,
-	twoMonthTrades: twoMonthTrades
+	twoMonthTrades: twoMonthTrades,
+	tradesThroughTime: tradesThroughTime
 };

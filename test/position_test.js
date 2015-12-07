@@ -4,7 +4,7 @@ var v = require('./setup');
 
 describe('Position', function() {
 	
-	describe('#totalCost()', function() {
+	describe('#totalCost(options)', function() {
 		it('should have same total cost as trade if only one trade', function() {
 			assert.equal(v.oneTrade.totalCost(), v.trade1.totalCost());
 		});
@@ -12,6 +12,25 @@ describe('Position', function() {
 		it('should have total cost as sum of total cost of trades', function(){
 			assert.equal(v.twoTrades.totalCost(), v.trade1.totalCost() + v.trade2.totalCost());
 		});
+		
+		it('should include all trades if the date is after trade date', function(){
+			
+			const options = {asOf: new Date(2003,01,01)};
+			assert.equal(v.tradesThroughTime.totalCost(options), v.trade4.totalCost() + v.trade5.totalCost());
+		});
+		
+		it('should include no trades if the date is before all trade dates', function(){
+			
+			const options = {asOf: new Date(2000,01,01)};
+			assert.equal(v.tradesThroughTime.totalCost(options), 0);
+		});
+		
+		it('should include one trade if the date is between trade dates', function(){
+			
+			const options = {asOf: new Date(2001,02,01)};
+			assert.equal(v.tradesThroughTime.totalCost(options), v.trade4.totalCost());
+		});
+		
 	});
 	
 	describe('#totalVolume()', function() {
@@ -21,6 +40,24 @@ describe('Position', function() {
 		
 		it('should have total volume as sum of total volume of trades', function(){
 			assert.equal(v.twoTrades.totalVolume(), v.trade1.totalVolume() + v.trade2.totalVolume());
+		});
+		
+		it('should include all trades if the date is after trade date', function(){
+			
+			const options = {asOf: new Date(2003,01,01)};
+			assert.equal(v.tradesThroughTime.totalVolume(options), v.trade4.totalVolume() + v.trade5.totalVolume());
+		});
+		
+		it('should include no trades if the date is before all trade dates', function(){
+			
+			const options = {asOf: new Date(2000,01,01)};
+			assert.equal(v.tradesThroughTime.totalVolume(options), 0);
+		});
+		
+		it('should include one trade if the date is between trade dates', function(){
+			
+			const options = {asOf: new Date(2001,02,01)};
+			assert.equal(v.tradesThroughTime.totalVolume(options), v.trade4.totalVolume());
 		});
 	});
 	
