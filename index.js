@@ -22,14 +22,14 @@ app.listen(process.env.PORT || config.port);
 console.log('server running on ' + config.port);
 exports = module.exports = app;
 
-app.get('/api/portfolios', function(req, res){
-	executeQuery("SELECT * FROM portfolios WHERE user_id=$1;", [0], function(result) {
+app.get('/api/user/:id/portfolios', function(req, res){
+	executeParameterizedQuery("SELECT * FROM portfolios WHERE user_id=$1;", [req.params.id], function(result) {
 		res.json(result);
 	});
 });
 
-app.get('/api/trades', function(req, res){
-	executeQuery("SELECT trades.*, row_to_json(products.*) FROM trades inner join products on trades.product_id = products.id;", function(result) {
+app.get('/api/portfolio/:id/trades', function(req, res){
+	getTradesByPortfolio(req.param.id, function(result){
 		res.json(result);
 	});
 });
@@ -37,7 +37,13 @@ app.get('/api/trades', function(req, res){
 
 // common query functions
 
-var getTradesByPortfolio()
+var getTradesByPortfolio = function(id, callback) {
+	var sql = "SELECT trades.*, row_to_json(products.*) FROM trades " +
+		"inner join products on trades.product_id = products.id WHERE portfolio_id = $1;"
+	executeParameterizedQuery(sql, [id], function(result) {
+		callback(result);
+	});
+};
 
 
 
