@@ -29,7 +29,7 @@ app.get('/api/user/:id/portfolios', function(req, res){
 });
 
 app.get('/api/portfolio/:id/trades', function(req, res){
-	getTradesByPortfolio(req.param.id, function(result){
+	getTradesByPortfolio(req.params.id, function(result){
 		res.json(result);
 	});
 });
@@ -38,8 +38,10 @@ app.get('/api/portfolio/:id/trades', function(req, res){
 // common query functions
 
 var getTradesByPortfolio = function(id, callback) {
-	var sql = "SELECT trades.*, row_to_json(products.*) FROM trades " +
-		"inner join products on trades.product_id = products.id WHERE portfolio_id = $1;"
+	var sql = "SELECT trades.*, row_to_json(products.*) AS product, row_to_json(contracts.*) AS contract FROM trades " +
+		"INNER JOIN products ON trades.product_id = products.id " +
+		"INNER JOIN contracts ON trades.contract_id = contracts.id " +
+		"WHERE portfolio_id = $1;"
 	executeParameterizedQuery(sql, [id], function(result) {
 		callback(result);
 	});
