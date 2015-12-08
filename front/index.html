@@ -6,8 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 	<script src="./scripts/angular.min.js"></script>
-	<script src="./scripts/chart.min.js"></script>
 	<script src="./scripts/riskebb_front.js"></script>
+	<script src="./scripts/d3.min.js"></script>
 	<link href="./styles/bootstrap.min.css" rel="stylesheet">
 	<link href="./styles/bootstrap-theme.min.css" rel="stylesheet">
 	<link href="./styles/riskebb.css" rel="stylesheet">
@@ -17,43 +17,25 @@
 
 <body>
 
-<div class="panel panel-default col-sm-8">
-	<canvas id='myChart'></canvas>
+
+<div class="col-sm-4" ng-controller="PortfolioReportController">
+	<p>{{user.name}}</p>
+	<select class="form-control" ng-model="selectedPortfolio" ng-options="portfolio.name for portfolio in portfolios" ng-change="refreshReport()"></select>
+	<input class="form-control" type="text" ng-model="startDate" ></input>
+	<input class="form-control" type="text" ng-model="endDate" ></input>
+	
 </div>
 
-<script>
+<div class="panel panel-default col-sm-8">
+	<h2>Risk Report</h2>
+	<div id='chart'></div>
+	<h3>
+	<span class="market label">Market Price</span>
+	<span class="vwap label">VWAP</span>
+	<span class="volume label">Volume traded</span>
+	</h3>
 
-var options = {
-	animation : true,
-	responsive: true
-};
-var data = {
-    labels : ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"],
-    datasets : [
-        {
-            fillColor : "rgba(99,123,133,0.4)",
-            strokeColor : "rgba(220,220,220,1)",
-            pointColor : "rgba(220,220,220,1)",
-            pointStrokeColor : "#fff",
-            data : [65,54,30,81,56,55,40]
-        },
-        {
-            fillColor : "rgba(219,186,52,0.4)",
-            strokeColor : "rgba(220,220,220,1)",
-            pointColor : "rgba(220,220,220,1)",
-            pointStrokeColor : "#fff",
-            data : [20,60,42,58,31,21,50]
-        },
-    ]
-}
-var canvas = document.getElementById("myChart");
-var ctx = canvas.getContext("2d");
-new Chart(ctx).Line(data, options);
-
-
-</script>
-
-
+</div>
 
 
 <script src="./scripts/ui-bootstrap-0.14.2.min.js"></script>

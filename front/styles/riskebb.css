@@ -1,7 +1,32 @@
-canvas {
-    width: 60%;
-    height: 300px;
-}
 body {
-    background: lightgreen;
+	background-color: lightgrey
+}
+
+
+path { 
+    stroke-width: 2;
+    fill: none;
+}
+
+.market {
+	stroke: red;
+	background-color: red;
+}
+
+.volume {
+	stroke: green;
+	background-color: green;
+}
+
+.vwap {
+	stroke: steelblue;
+	background-color: steelblue;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
 }

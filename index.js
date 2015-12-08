@@ -1,3 +1,5 @@
+'use strict';
+
 var config	= require('./config.json');
 var express = require('express');
 var pg		= require('pg');
@@ -7,10 +9,11 @@ var trader = require('./lib/trader.js');
 var fs = require('fs');
 var assert = require('assert');
 var trader = require('./lib/trader');
+var async = require('async');
 
 var sql = fs.readFileSync('./db/init.sql').toString();
 
-var connectionString = process.env.DATABASE_URL || "postgres://" + config.dbUser + ":" + config.dbPass + "@localhost:5432/" + config.dbName;
+var connectionString = process.env.DATABASE_URL || "postgres://" + config.dbUser + ":" + config.dbPass + "@127.0.0.1:5432/" + config.dbName;
 var client = new pg.Client(connectionString);
 client.connect();
 
@@ -42,31 +45,36 @@ app.get('/api/portfolio/:id/report', function(req, res){
 	
 	var dateArray = createDateRange(startDate, endDate);
 	
-	var report = [];
-	
 	getTradesByPortfolio(req.params.id, function(trades){
 		
-		console.log(trades[0]);
-		console.log(trades[0].totalVolume());
-		
 		var position = new trader.Position(trades);
-		dateArray.forEach(function(nextDate){
-			report.push(
-				{
-					date: nextDate,
-					val: position.totalVolume({asOf:nextDate})
+		var getReportItem = function(nextDate, callBack) {
+			getPricesByDate(nextDate, function(prices){
+				
+				if (prices.length > 0) {
+					var curve = new trader.PriceCurve(prices, nextDate);
+					var totalVolume = position.totalVolume({asOf:nextDate});
+					var reportItem = {
+							date: nextDate,
+							volume: totalVolume,
+							vwap: position.VWAP({asOf:nextDate}),
+							marketPrice: position.marketValue(curve)/totalVolume
+						};
+					callBack(null, reportItem);
 				}
-			);
-		});
+				else {
+					callBack(null, null);
+				}
+			});
+		};
 		
-		res.json(report);
+		async.map(dateArray, getReportItem, function(err, result){
+			// finally remove any null values
+			
+			res.json(result.filter(function(item){return item !=null}));
+		});
 	});
-	
-	
-	
 });
-
-
 
 
 // common query functions
