@@ -73,7 +73,7 @@ const aprBaseloadPrice = new trader.MarketPrice(baseload, apr, 2.0, new Date());
 const janPeakPrice = new trader.MarketPrice(peak, jan, 3.0, new Date());
 const aprPeakPrice = new trader.MarketPrice(peak, apr, 4.0, new Date());
 
-const priceCurve = new trader.PriceCurve([janBaseloadPrice, aprBaseloadPrice, janPeakPrice, aprPeakPrice]);
+const priceCurve = new trader.PriceCurve([janBaseloadPrice, aprBaseloadPrice, janPeakPrice, aprPeakPrice], new Date());
 
 module.exports = {
 	baseload: baseload,
