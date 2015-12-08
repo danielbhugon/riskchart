@@ -37,7 +37,6 @@ CREATE TABLE IF NOT EXISTS users
 	CONSTRAINT users_pkey PRIMARY KEY (id)
 );
 
-DROP TABLE trades;
 CREATE TABLE IF NOT EXISTS trades
 (
 	id bigserial NOT NULL,
