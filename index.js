@@ -6,6 +6,7 @@ var app     = express();
 var trader = require('./lib/trader.js');
 var fs = require('fs');
 var assert = require('assert');
+var trader = require('./lib/trader');
 
 var sql = fs.readFileSync('./db/init.sql').toString();
 
@@ -34,6 +35,39 @@ app.get('/api/portfolio/:id/trades', function(req, res){
 	});
 });
 
+app.get('/api/portfolio/:id/report', function(req, res){
+	// 
+	var startDate = new Date(req.query.startDate);
+	var endDate = new Date(req.query.endDate);
+	
+	var dateArray = createDateRange(startDate, endDate);
+	
+	var report = [];
+	
+	getTradesByPortfolio(req.params.id, function(trades){
+		
+		console.log(trades[0]);
+		console.log(trades[0].totalVolume());
+		
+		var position = new trader.Position(trades);
+		dateArray.forEach(function(nextDate){
+			report.push(
+				{
+					date: nextDate,
+					val: position.totalVolume({asOf:nextDate})
+				}
+			);
+		});
+		
+		res.json(report);
+	});
+	
+	
+	
+});
+
+
+
 
 // common query functions
 
@@ -43,11 +77,25 @@ var getTradesByPortfolio = function(id, callback) {
 		"INNER JOIN contracts ON trades.contract_id = contracts.id " +
 		"WHERE portfolio_id = $1;"
 	executeParameterizedQuery(sql, [id], function(result) {
-		callback(result);
+		var toTrades = result.map(function(row){
+			//(id, product, contract, rate, price, trade_date, info)
+			return new trader.Trade(row.id, row.product, row.contract, row.rate, row.price, row.trade_date, row.info);
+		});
+		callback(toTrades);
 	});
 };
 
-
+var getPricesByDate = function(date, callback) {
+	// product, contract, price, price_date
+	var sql = "SELECT market_prices.id, row_to_json(products.*) AS product, row_to_json(contracts.*) AS contract, " +
+		"market_prices.price, market_prices.price_date FROM market_prices " +
+		"INNER JOIN products ON market_prices.product_id = products.id " +
+		"INNER JOIN contracts ON market_prices.contract_id = contracts.id " +
+		"WHERE price_date = $1;"
+	executeParameterizedQuery(sql, [date], function(result) {
+		callback(result);
+	});
+};
 
 // helper functions for database access - replace with ORM if required?
 var executeQuery = function(sql, callback) {
@@ -72,6 +120,23 @@ var executeParameterizedQuery = function(sql, params, callback) {
 	query.on('end', function(result) {
 		callback(result.rows);
 	});
+};
+
+// functions for creating an array of dates
+Date.prototype.addDays = function(days) {
+    var dat = new Date(this.valueOf())
+    dat.setDate(dat.getDate() + days);
+    return dat;
+};
+
+var createDateRange = function(startDate, endDate) {
+    var dateArray = new Array();
+    var currentDate = startDate;
+    while (currentDate <= endDate) {
+        dateArray.push( new Date (currentDate) )
+        currentDate = currentDate.addDays(1);
+    }
+    return dateArray;
 };
 
 // finally 404 result
