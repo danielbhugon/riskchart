@@ -89,11 +89,11 @@ riskEbbApp.controller('PortfolioReportController', function($scope, $http) {
 			
 			// Add the valueline paths.
 			price_svg.append("path")
-				.attr("class", "line market")
+				.attr("class", "line vwap")
 				.attr("d", vwapline($scope.report));
 			
 			price_svg.append("path")
-				.attr("class", "line vwap")
+				.attr("class", "line market")
 				.attr("d", marketline($scope.report));
 			
 			
