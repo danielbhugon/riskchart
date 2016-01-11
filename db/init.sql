@@ -84,7 +84,7 @@ VALUES
 DELETE FROM users;
 INSERT INTO users (id, name)
 VALUES
-(0, 'Powerisk');
+(0, 'Demo');
 
 DELETE FROM portfolios;
 INSERT INTO portfolios (id, user_id, name)

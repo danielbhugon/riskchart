@@ -1,9 +1,9 @@
 
 'use strict';
 
-var riskEbbApp = angular.module('riskEbbApp', ['ui.bootstrap.modal']);
+var riskChartApp = angular.module('riskChartApp', ['ui.bootstrap.modal']);
 
-angular.module('riskEbbApp').config(['$compileProvider', '$locationProvider', function ($compileProvider, $locationProvider)
+angular.module('riskChartApp').config(['$compileProvider', '$locationProvider', function ($compileProvider, $locationProvider)
     {
           $compileProvider.aHrefSanitizationWhitelist(/^\s*(https?|mailto|data):/);
 			$locationProvider.html5Mode({
@@ -13,7 +13,7 @@ angular.module('riskEbbApp').config(['$compileProvider', '$locationProvider', fu
     }]);
 
 
-riskEbbApp.controller('PortfolioReportController', function($scope, $http) {
+riskChartApp.controller('PortfolioReportController', function($scope, $http) {
 	
 	$scope.user = {id: 0, name: 'Powerisk'};
 	$scope.portfolios = [];
