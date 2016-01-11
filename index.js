@@ -22,7 +22,7 @@ client.query(sql);
 app.use(express.static(__dirname + config.staticFolder));
 app.use(bodyParser.json());
 
-const port = process.env.PORT || config.port; 
+var port = process.env.PORT || config.port; 
 app.listen(port);
 console.log('server running on ' + port);
 exports = module.exports = app;

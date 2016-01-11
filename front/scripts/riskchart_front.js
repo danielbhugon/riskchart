@@ -15,7 +15,7 @@ angular.module('riskChartApp').config(['$compileProvider', '$locationProvider', 
 
 riskChartApp.controller('PortfolioReportController', function($scope, $http) {
 	
-	$scope.user = {id: 0, name: 'Powerisk'};
+	$scope.user = {id: 0, name: 'Demo'};
 	$scope.portfolios = [];
 	$scope.report = {};
 	$scope.selectedPortfolio = {};
