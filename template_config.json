@@ -1,0 +1,7 @@
+{
+  "dbUser"		: "",
+  "dbPass"		: "",
+  "dbName"		: "",
+  "port"		: "",
+  "staticFolder": "/front"
+}

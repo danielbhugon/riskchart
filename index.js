@@ -22,8 +22,9 @@ client.query(sql);
 app.use(express.static(__dirname + config.staticFolder));
 app.use(bodyParser.json());
 
-app.listen(process.env.PORT || config.port);
-console.log('server running on ' + config.port);
+const port = process.env.PORT || config.port; 
+app.listen(port);
+console.log('server running on ' + port);
 exports = module.exports = app;
 
 app.get('/api/user/:id/portfolios', function(req, res){
