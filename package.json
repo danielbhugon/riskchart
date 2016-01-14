@@ -1,7 +1,7 @@
 {
-  "name"        : "riskEbb",
+  "name"        : "riskChart",
   "version"     : "0.0.1",
-  "description" : "riskEbb - commodity risk management",
+  "description" : "riskChart - commodity risk management",
   "main"        : "index.js",
   "author"      : "Daniel Bhugon",
   "dependencies": {
