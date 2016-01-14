@@ -80,7 +80,18 @@ describe('Trade', function() {
 	});
 	
 	describe('#reverse()', function(){
-		it('should give a trade with the opposite volume but other details the same');
+		it('should give a trade with the opposite volume but other details the same', function() {
+			var reverseTrade = v.trade1.reverse();
+			
+			assert.equal(v.trade1.id, reverseTrade.id);
+			assert.equal(v.trade1.product, reverseTrade.product);
+			assert.equal(v.trade1.contract, reverseTrade.contract);
+			assert.equal(v.trade1.rate, -reverseTrade.rate);
+			assert.equal(v.trade1.price, reverseTrade.price);
+			assert.equal(v.trade1.trade_date, reverseTrade.trade_date);
+			assert.equal(v.trade1.info, reverseTrade.info);
+			
+		});
 	});
 	
 });
